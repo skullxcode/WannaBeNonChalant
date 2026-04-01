@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WannaBeNonChalant</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>WannaBeNonChalant</h1>
+    <h3>Music Search</h3>
+    <input type="text" id="searchInput" placeholder="Search songs and artists...">
+    <button id="explicitToggle">Hide Explicit</button>
+  </header>
+
+  <main>
+    <div id="heroState">
+      <h2>Search for music</h2>
+    </div>
+
+    <div id="resultsBar" hidden>
+      <span id="resultsCount"></span>
+      <span id="resultsQuery"></span>
+    </div>
+
+    <div id="trackGrid" class="track-grid"></div>
+
+    <div id="emptyState" hidden>
+      <p>No tracks found</p>
+    </div>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
