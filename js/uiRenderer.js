@@ -4,6 +4,7 @@ const trackGrid = document.getElementById('trackGrid');
 const emptyState = document.getElementById('emptyState');
 const resultsBar = document.getElementById('resultsBar');
 const resultsCount = document.getElementById('resultsCount');
+const heroState = document.getElementById('heroState');
 
 export function renderTracks(tracks) {
   trackGrid.innerHTML = '';
@@ -11,11 +12,13 @@ export function renderTracks(tracks) {
   if (tracks.length === 0) {
     emptyState.hidden = false;
     resultsBar.hidden = true;
+    heroState.hidden = true;
     return;
   }
 
   emptyState.hidden = true;
   resultsBar.hidden = false;
+  heroState.hidden = true;
   resultsCount.textContent = tracks.length + ' tracks found';
 
   for (let i = 0; i < tracks.length; i++) {
@@ -23,6 +26,25 @@ export function renderTracks(tracks) {
     const card = createTrackCard(track);
     trackGrid.appendChild(card);
   }
+}
+
+export function showLoader() {
+  heroState.innerHTML = '<h2>Loading...</h2>';
+  heroState.hidden = false;
+  emptyState.hidden = true;
+  resultsBar.hidden = true;
+}
+
+export function hideLoader() {
+  // Loader is hidden when renderTracks is called
+}
+
+export function showInitialState() {
+  heroState.innerHTML = '<h2>Search for music</h2>';
+  heroState.hidden = false;
+  emptyState.hidden = true;
+  resultsBar.hidden = true;
+  trackGrid.innerHTML = '';
 }
 
 

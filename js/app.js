@@ -1,5 +1,5 @@
 import { searchTracks } from './api.js';
-import { renderTracks, showLoader, hideLoader } from './uiRenderer.js';
+import { renderTracks, showLoader, hideLoader, showInitialState } from './uiRenderer.js';
 
 const searchInput = document.getElementById('searchInput');
 const explicitToggle = document.getElementById('explicitToggle');
@@ -13,7 +13,7 @@ function init() {
     
     if (!query) {
       masterTracks = [];
-      renderTracks([]);
+      showInitialState();
       return;
     }
 
