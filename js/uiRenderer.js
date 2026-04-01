@@ -25,13 +25,6 @@ export function renderTracks(tracks) {
   }
 }
 
-export function showLoader() {
-  // Simple loading indicator could be added here if needed
-}
-
-export function hideLoader() {
-  // Hides loading indicator
-}
 
 function createTrackCard(track) {
   const artwork = getHighResArtwork(track.artworkUrl100);
