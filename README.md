@@ -29,7 +29,7 @@ This project is a demonstration of advanced frontend engineering principles usin
 | **HTML5** | Semantic structure |
 | **CSS3** | Flexbox, Grid, CSS Variables, Glassmorphism |
 | **JavaScript (ES6+ Modules)** | Core logic & interactivity |
-| **Deezer Public API** | Music data |
+| **iTunes API** | Music data |
 | **CORS Proxy (corsproxy.io)** | API request handling |
 
 ---
@@ -43,7 +43,7 @@ This project is a demonstration of advanced frontend engineering principles usin
 └── js/
     ├── app.js        # Main controller & event handling
     ├── api.js        # API communication layer
-    ├── ui.js         # Dynamic DOM rendering
+    ├── uiRenderer.js         # Dynamic DOM rendering
     └── audio.js      # Singleton audio engine
 ```
 
