@@ -1,0 +1,181 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+}
+
+header {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 20px;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: #666;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+button:hover {
+  background-color: #444;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#heroState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #aaa;
+}
+
+#heroState h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.track-card {
+  background-color: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.track-card:hover {
+  background-color: #333;
+}
+
+.track-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.track-info {
+  padding: 5px 0;
+}
+
+.track-name {
+  font-size: 13px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-duration {
+  font-size: 11px;
+  color: #888;
+}
+
+.explicit-badge {
+  background-color: #c41e3a;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+#resultsBar {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #222;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #aaa;
+}
+
+#resultsCount {
+  font-weight: bold;
+}
+
+#emptyState {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .track-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  header {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-size: 18px;
+  }
+
+  main {
+    padding: 0 10px;
+  }
+}
