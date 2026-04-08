@@ -2,7 +2,7 @@
 
 > **A sleek, client-side music discovery experience**
 
-WannaBeNonChalant is a modern, high-performance music discovery web application powered by the Deezer Public API. Designed with a minimalist glassmorphic aesthetic, it enables users to seamlessly search, filter, sort, and preview 30-second audio snippets—delivering a premium, production-ready frontend experience.
+WannaBeNonChalant is a modern, high-performance music discovery web application powered by the iTunes Search API. Designed with a minimalist glassmorphic aesthetic, it enables users to seamlessly search, filter, sort, and preview 30-second audio snippets—delivering a premium, production-ready frontend experience.
 
 ---
 
@@ -41,42 +41,47 @@ This project is a demonstration of advanced frontend engineering principles usin
 ├── index.html        # Semantic layout
 ├── styles.css        # Glassmorphic UI styling
 └── js/
-    ├── app.js        # Main controller & event handling
-    ├── api.js        # API communication layer
-    ├── uiRenderer.js         # Dynamic DOM rendering
-    └── audio.js      # Singleton audio engine
+    ├── app.js             # Main controller & event handling
+    ├── api.js             # API communication layer
+    ├── uiRenderer.js      # Dynamic DOM rendering
+    ├── audioController.js # Singleton audio engine
+    └── storage.js         # Local storage management
 ```
 
 ---
 
-## 🚀 Planned Features
+## 🚀 Features
 
 ### 🔍 Smart Live Search (Debounce)
-- Will implement a custom debounce using closures and `setTimeout`
-- Will reduce unnecessary API calls
-- Will enhance performance and responsiveness
+- Implements a custom debounce using closures and `setTimeout`
+- Reduces unnecessary API calls
+- Enhances performance and responsiveness
 
 ### 🧠 Advanced Data Manipulation
-- Will use `.filter()` for real-time searching
-- Will use `.sort()` for dynamic ordering (duration, popularity)
-- Will handle all data processing client-side for optimized performance
+- Uses `.filter()` for real-time searching and explicit filtering
+- Uses `.sort()` for dynamic ordering (duration, release date, alphabetical)
+- Handles all data processing client-side for optimized performance
 
 ### 🔊 Singleton Audio Engine
-- Will ensure only one track plays at a time
-- Will prevent overlapping audio
-- Will provide centralized playback control (play/pause/reset)
+- Ensures only one track plays at a time
+- Prevents overlapping audio
+- Provides centralized playback control (play/pause/reset)
 
 ### 🎨 Dynamic UI Rendering
-- Will use `.map()` to generate UI components
-- Will format raw data into user-friendly outputs (MM:SS)
-- Will keep DOM updates efficient with minimal reflow
+- Uses `.map()` to generate UI components
+- Formats raw data into user-friendly outputs (MM:SS)
+- Keeps DOM updates efficient with minimal reflow
+
+### ⭐ Favorites System
+- Allows users to logically like and unlike tracks
+- Saved tracks persist in local storage
+- Dedicated favorites modal with playback controls
 
 ---
 
 ## 🌐 API Integration
 
-- **Endpoint:** `https://api.deezer.com/search?q=`
-- **Proxy:** `https://corsproxy.io/?`
+- **Endpoint:** `https://itunes.apple.com/search?term=`
 - Fetches:
   - Track metadata
   - Artist information
@@ -113,7 +118,6 @@ cd WannaBeNonChalant
 ## 🔮 Future Improvements
 
 - [ ] 🎵 Playlist creation functionality
-- [ ] ⭐ Favorites / bookmark system
 - [ ] 🔐 User authentication
 - [ ] 🗄 Backend integration for persistence
 - [ ] 🤖 Smarter recommendation engine
