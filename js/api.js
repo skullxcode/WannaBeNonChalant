@@ -1,40 +1,49 @@
-const ITUNES_BASE_URL = 'https://itunes.apple.com/search';
+const ITUNES_API_URL = 'https://itunes.apple.com/search';
 
-
-export async function searchTracks(query, limit = 100) {
-  if (!query || !query.trim()) return [];
-  const params = new URLSearchParams({
-    term:   query.trim(),
-    entity: 'song',
-    limit:  String(limit),
-  });
-
-  const url = `${ITUNES_BASE_URL}?${params.toString()}`;
-
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`iTunes API error: ${response.status} ${response.statusText}`);
+export const searchTracks = async (queryText, maxItems = 100) => {
+    if (!queryText || queryText.trim() === '') {
+        return [];
     }
-    const data = await response.json();
-    return Array.isArray(data.results) ? data.results : [];
 
-  } catch (err) {
-    console.error('[api.js] searchTracks failed:', err);
-    return [];
-  }
-}
+    let params = new URLSearchParams({
+        term: queryText.trim(),
+        entity: 'song',
+        limit: maxItems.toString(),
+    });
+
+    try {
+        let reqUrl = ITUNES_API_URL + '?' + params.toString();
+        const resp = await fetch(reqUrl);
+
+        if (!resp.ok) {
+            throw new Error("iTunes API failed with status: " + resp.status);
+        }
+
+        const json = await resp.json();
+        
+        if (json.results && Array.isArray(json.results)) {
+            return json.results;
+        }
+        return [];
+    } catch (err) {
+        return [];
+    }
+};
 
 export function formatDuration(ms) {
-  if (!ms || typeof ms !== 'number') return '—';
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    if (typeof ms !== 'number' || !ms) {
+        return '--:--';
+    }
+    let totalSecs = Math.floor(ms / 1000);
+    let mins = Math.floor(totalSecs / 60);
+    let secs = totalSecs % 60;
+    
+    if (secs < 10) secs = "0" + secs;
+    return mins + ":" + secs;
 }
 
-export function getHighResArtwork(url, size = 600) {
-  if (!url) return '';
-  return url.replace(/\d+x\d+bb/, `${size}x${size}bb`);
+export function getHighResArtwork(url, size) {
+    let imgSize = size ? size : 600;
+    if (!url) return '';
+    return url.replace(/\d+x\d+bb/, imgSize + 'x' + imgSize + 'bb');
 }

@@ -3,33 +3,134 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WannaBeNonChalant</title>
+  <title>WannaBeNonChalant - Music</title>
+  <meta name="description" content="Discover music and preview audio easily.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300..500;1,300..500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>WannaBeNonChalant</h1>
-    <h3>Music Search</h3>
-    <input type="text" id="searchInput" placeholder="Search songs and artists...">
-    <button id="explicitToggle">Hide Explicit</button>
+
+  <header class="topNav" id="main-header">
+    <div class="navInner">
+      
+      <div class="brandLogo">
+        <span class="icon">◈</span>
+        <span class="titleText">WannaBeNonChalant</span>
+      </div>
+
+      <div class="searchWrapper">
+        <svg class="iconSearch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" class="searchBox" placeholder="Search for artists, songs..." autocomplete="off" spellcheck="false">
+        <div class="loader" id="searchLoadingData"></div>
+      </div>
+
+      <div class="actionControls">
+        <div class="sortGrp">
+          <label class="sortLabel" for="sortByItems">Sort</label>
+          <select id="sortByItems" class="glassSelect">
+            <option value="default">Relevance</option>
+            <option value="duration">Duration</option>
+            <option value="release">Release date</option>
+            <option value="alpha">A-Z</option>
+          </select>
+        </div>
+
+        <button class="btnFilter" id="explicitToggleBtn" data-active="false">
+          <span class="dot"></span> explicit
+        </button>
+
+        <button class="btnFavorites" id="likesBtn" title="Your liked tracks">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="likeCounter" id="favCounter">0</span>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <div id="heroState">
-      <h2>Search for music</h2>
+  <main class="contentContainer" id="mainSection">
+
+    <section class="welcomeState" id="emptyHeroDiv">
+      <div class="symbolMark">◈</div>
+      <h1 class="mainHeading">Discover sound.<br/>Stay nonchalant.</h1>
+      <p class="subText">Type a song or artist above to start searching.</p>
+    </section>
+
+    <!-- showing total results -->
+    <div class="resultsInfo" id="resultsTopBar" hidden>
+      <span class="totalCount" id="trackCountLabel"></span>
+      <span class="queryStr" id="queryLabel"></span>
     </div>
 
-    <div id="resultsBar" hidden>
-      <span id="resultsCount"></span>
-      <span id="resultsQuery"></span>
-    </div>
+    <section class="tracksGrid" id="trackListings" aria-label="Track results"></section>
 
-    <div id="trackGrid" class="track-grid"></div>
-
-    <div id="emptyState" hidden>
-      <p>No tracks found</p>
+    <div class="noResults" id="noDataFound" hidden>
+      <p>No tracks found. Please try a different search term.</p>
     </div>
   </main>
+
+  <div class="modalBg" id="likesModal" aria-modal="true" role="dialog" aria-label="Liked Tracks" hidden>
+    <div class="modalContent">
+      <div class="modalTop">
+        <h2 class="modalTitle">
+          <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg> Liked Tracks
+        </h2>
+        <button class="closeBtn" id="closeModalBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modalBody" id="likesListWrapper"></div>
+    </div>
+  </div>
+
+  <div class="bottomPlayer" id="globalPlayer" aria-label="Audio Player" data-visible="false">
+    <div class="trackInfoBox">
+      <div class="artWrapper">
+        <img class="coverArt" id="playingArt" src="" alt="Album Art">
+        <div class="artPulse" id="imgPulse"></div>
+      </div>
+      <div class="metaDetails">
+        <span class="currTrackName" id="currTrackTitle">-</span>
+        <span class="currArtistName" id="currArtistTitle">-</span>
+      </div>
+    </div>
+
+    <div class="playerControls">
+      <button class="playPauseBtn" id="togglePlayBtn" aria-label="Play/Pause">
+        <svg class="iconPlay" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        <svg class="iconPause" viewBox="0 0 24 24" fill="currentColor" hidden><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+
+      <div class="seekWrapper">
+        <span class="timeLabel" id="timeCurrent">0:00</span>
+        <div class="progressBar" id="seekTrack" role="slider" aria-label="Seek">
+          <div class="progressActive" id="seekFill"></div>
+          <div class="progressDot" id="seekThumb"></div>
+        </div>
+        <span class="timeLabel" id="timeTotal">0:30</span>
+      </div>
+    </div>
+
+    <div class="extraControls">
+      <canvas class="eqCanvas" id="canvasVis" width="120" height="36"></canvas>
+      <div class="volControl">
+        <svg class="volIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        </svg>
+        <input type="range" class="volSlider" id="sliderVol" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+      </div>
+    </div>
+  </div>
+
+  <audio id="htmlAudioEl" preload="none"></audio>
 
   <script type="module" src="js/app.js"></script>
 </body>
